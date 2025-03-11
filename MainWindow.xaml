@@ -5,15 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    
-        <DataTemplate>
-            <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock>Телефон</TextBlock>
-                <TextBlock Text="{Binding ProductTypeId}"></TextBlock>
-            </StackPanel>
-            </StackPanel>
-        </DataTemplate>
+        Title="Учет партнеров" Height="450" Width="800">
+
+    <Grid Margin="10, 70, 10, 10">
+        <DataGrid x:Name="PartnersGrid" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Компания">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding CompanyName}"></TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+    </Grid>
     
 </Window>
