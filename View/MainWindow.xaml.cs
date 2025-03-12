@@ -20,7 +20,9 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
-            LoadPartners();
+            DataContext = new PartnerViewModel();
+            this.Icon = new BitmapImage
+                (new Uri("pack://application:,,,/Images/master_pol.ico"));
         }
 
     }

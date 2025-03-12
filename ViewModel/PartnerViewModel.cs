@@ -1,43 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WpfApp1;
+using WpfApp1.Models;
 
 
 namespace WpfApp1.ViewModel
 {
     internal class PartnerViewModel
     {
-        public int PartnerId { get; set; }
-        public string CompanyName { get; set; }
-        public string DirectorName { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string RegisteredAddress { get; set; }
-        public string Inn { get; set; }
-        public decimal? Rating { get; set; }
-        public int PartnerTypeId { get; set; }
+        public ObservableCollection<Partner> Partners { get; set; }
+
+        public ObservableCollection<string> PartnerNames { get; set; }
+
+        public PartnerViewModel()
+        {
+            LoadPartners();
+        }
 
         private void LoadPartners()
         {
-            using (var db = new DbAppContext())
-            {
-                var partners = db.Partners
-                    .Select(p => new PartnerViewModel
-                    {
-                        CompanyName = p.CompanyName,
-                        DirectorName = p.DirectorName,
-                        Email = p.Email,
-                        Phone = p.Phone,
-                        RegisteredAddress = p.RegisteredAddress,
-                        Inn = p.Inn,
-                        Rating = p.Rating,
-                    }).ToList();
-
-                PartnersGrid.ItemSource = partners;
-            }
+            var partners = PartnerData.GetPartners();
+            Partners = new ObservableCollection<Partner>(partners);
+            PartnerNames = new ObservableCollection<string>(partners
+                .Select(p => p.CompanyName)
+                .Distinct()
+                .ToList());
         }
 
     }

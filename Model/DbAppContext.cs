@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WpfApp1.Models;
 
-namespace WpfApp1
+namespace WpfApp1.Model
 {
     internal class DbAppContext : DbContext
     {
@@ -15,7 +15,6 @@ namespace WpfApp1
         public DbSet<PartnerType> PartnerTypes { get; set; }
         public DbSet<PartnerProducts> PartnerProducts { get; set; }
         public DbSet<Partner> Partners { get; set; }
-        public DbSet<DeploymentHistory> DeploymentHistory { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -43,22 +42,12 @@ namespace WpfApp1
                 entity.Property(e => e.Email).HasColumnName("email");
                 entity.Property(e => e.Phone).HasColumnName("phone");
                 entity.Property(e => e.RegisteredAddress).HasColumnName("registered_address");
-                entity.Property(e => e.Inn).HasColumnName("INN");
+                entity.Property(e => e.Inn).HasColumnName("inn");
                 entity.Property(e => e.Rating).HasColumnName("rating");
+                entity.Property(e => e.PartnerTypeId).HasColumnName("partner_type_id");
+                
 
                 entity.HasOne(p => p.PartnerTypeEntity).WithMany(p => p.PartnerEntities).HasForeignKey(p => p.PartnerTypeId);
-            });
-
-            modelBuilder.Entity<DeploymentHistory>(entity =>
-            {
-                entity.ToTable("deployment_history");
-
-                entity.Property(e => e.DeploymentHistoryId).HasColumnName("deployment_history_id");
-                entity.Property(e => e.Date).HasColumnName("date");
-                entity.Property(e => e.SalesAmount).HasColumnName("sales_amount");
-                entity.Property(e => e.DiscountAmount).HasColumnName("discount_amount");
-
-                entity.HasOne(p => p.PartnerEntity).WithMany(p => p.DeploymentHistoryEntities).HasForeignKey(p => p.PartnerId);
             });
 
             modelBuilder.Entity<ProductType>(entity =>
@@ -89,12 +78,13 @@ namespace WpfApp1
                 entity.Property(e => e.PartnerProductsId).HasColumnName("partner_products_id");
                 entity.Property(e => e.ProductAmount).HasColumnName("product_amount");
                 entity.Property(e => e.SaleDate).HasColumnName("sale_date");
+                entity.Property(e => e.ProductId).HasColumnName("product_id");
+                entity.Property(e => e.PartnerId).HasColumnName("partner_id");
+
 
                 entity.HasOne(p => p.PartnerEntity).WithMany(p => p.PartnerProductsEntities).HasForeignKey(p => p.PartnerId);
                 entity.HasOne(p => p.ProductEntity).WithMany(p => p.PartnerProductsEntities).HasForeignKey(p => p.ProductId);
             });
         }
-
-        public static List<>
     }
 }
