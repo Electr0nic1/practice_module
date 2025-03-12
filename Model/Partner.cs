@@ -20,24 +20,6 @@ namespace WpfApp1.Models
         public PartnerType PartnerTypeEntity { get; set; }
         public List<PartnerProducts> PartnerProductsEntities { get; set; }
 
-        public double Discount
-        {
-            get
-            {
-                if (PartnerProductsEntities == null || PartnerProductsEntities.Count == 0)
-                {
-                    return 0;
-                }
-
-                int totalSales = PartnerProductsEntities.Sum(p => p.ProductAmount);
-
-                return totalSales > 300000 ? .15 :
-                    totalSales > 50000 ? .10 :
-                    totalSales > 10000 ? .05 :
-                    0;
-            }
-        }
-
         public Partner(int partnerId, string companyName, string directorName, string email, string phone, string registeredAddress, string inn, decimal? rating, int partnerTypeId)
         {
             PartnerId = partnerId;

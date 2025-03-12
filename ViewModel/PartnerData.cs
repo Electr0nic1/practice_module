@@ -11,14 +11,17 @@ namespace WpfApp1.ViewModel
 {
     internal class PartnerData
     {
-        public static List<Partner> GetPartners()
+        public static List<PartnerWithDiscount> GetPartners()
         {
             using (DbAppContext ctx = new DbAppContext())
             {
-                return ctx.Partners
+
+                var partners = ctx.Partners
                     .Include(p => p.PartnerTypeEntity)
                     .Include(p => p.PartnerProductsEntities)
                     .ToList();
+
+                return partners.Select(p => new PartnerWithDiscount(p)).ToList();
             }
         }
     }
