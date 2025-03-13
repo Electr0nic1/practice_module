@@ -8,21 +8,36 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Automation.Provider;
+using System.Windows.Navigation;
 using WpfApp1.ViewModel;
+using WpfApp1.Model;
+using WpfApp1.View;
 
 namespace WpfApp1
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        public enum Pages
+        {
+            PartnerList,
+            CreatePartner
+        }
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new PartnerViewModel();
-            this.Icon = new BitmapImage
-                (new Uri("pack://application:,,,/Images/master_pol.ico"));
+            OpenPage(Pages.PartnerList);
+        }
+        public void OpenPage(Pages page)
+        {
+            if (page == Pages.PartnerList)
+            {
+                MainFrame.Navigate(new PartnerList(this, new PartnerViewModel()));
+            }
+            else if (page == Pages.CreatePartner)
+            {
+                MainFrame.Navigate(new CreatePartner(this, new PartnerViewModel()));
+            }
         }
 
     }

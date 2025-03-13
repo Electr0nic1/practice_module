@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Models
 {
-    internal class PartnerWithDiscount : Partner
+    public partial class PartnerWithDiscount : Partner
     {
         public double Discount
         {
@@ -14,7 +14,7 @@ namespace WpfApp1.Models
             {
                 if (PartnerProductsEntities == null || PartnerProductsEntities.Count == 0)
                 {
-                    return 0;
+                    return 5;
                 }
 
                 int totalSales = PartnerProductsEntities.Sum(p => p.ProductAmount);
@@ -26,7 +26,7 @@ namespace WpfApp1.Models
             }
         }
 
-        public PartnerWithDiscount(Partner partner) : base(partner.PartnerId, partner.CompanyName, partner.DirectorName, partner.Email, partner.Phone, partner.RegisteredAddress, partner.Inn, partner.Rating, partner.PartnerTypeId)
+        public PartnerWithDiscount(Partner partner) : base(partner.CompanyName, partner.DirectorName, partner.Email, partner.Phone, partner.RegisteredAddress, partner.PartnerTypeEntity)
         {
             PartnerTypeEntity = partner.PartnerTypeEntity;
             PartnerProductsEntities = partner.PartnerProductsEntities;

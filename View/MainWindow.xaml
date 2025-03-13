@@ -5,56 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="Учет партнеров" Height="450" Width="800"
+        Title="MainWindow" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
         Icon="/Images/master_pol.ico">
-
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-            <Image Source="\Images\master_pol.png" Width="40" Height="40"/>
-            <TextBlock FontSize="30" Text="Список партнеров" HorizontalAlignment="Center" RenderTransformOrigin="-0.089,0.545"/>
-        </StackPanel>
-        
-
-        <ListBox x:Name="PartnerListBox" Grid.Row="1" ItemsSource="{Binding Partners}" 
-                 HorizontalContentAlignment="Stretch" d:ItemsSource="{d:SampleData ItemCount=5}" >
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Border BorderBrush="Black" BorderThickness="1">
-                        <Grid Background="{StaticResource SecondaryColor}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="5*"/>  
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-
-                            <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-                                <TextBlock Text="{Binding PartnerTypeEntity.TypeName}"/>
-                                <TextBlock Text=" | "/>
-                                <TextBlock Text="{Binding CompanyName}"/>
-                            </StackPanel>
-
-                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding DirectorName}"/>
-                            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Phone, StringFormat='+7 {0}'}"/>
-                            <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding Rating, StringFormat='Рейтинг: {0}'}"/>
-
-                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Discount, StringFormat=p0}"/>
-                        </Grid>
-                    </Border>                    
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
-        
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
-    
 </Window>

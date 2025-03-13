@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Models
 {
-    internal class PartnerType
+    public partial class PartnerType
     {
         public int PartnerTypeId { get; set; }
         public string TypeName { get; set; }

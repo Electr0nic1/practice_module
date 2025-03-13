@@ -9,7 +9,7 @@ using WpfApp1.Models;
 
 namespace WpfApp1.ViewModel
 {
-    internal class PartnerData
+    internal class DBData
     {
         public static List<PartnerWithDiscount> GetPartners()
         {
@@ -22,6 +22,24 @@ namespace WpfApp1.ViewModel
                     .ToList();
 
                 return partners.Select(p => new PartnerWithDiscount(p)).ToList();
+            }
+        }
+
+        public static void AddPartner(Partner partner)
+        {
+
+            using (DbAppContext ctx = new DbAppContext())
+            {
+                ctx.Partners.Add(partner);
+                ctx.SaveChanges();
+            }
+        }
+
+        public static int GetPartnerId(string partnerName)
+        {
+            using (DbAppContext ctx = new DbAppContext())
+            {
+                return ctx.PartnerTypes.First(t => t.TypeName == partnerName).PartnerTypeId;
             }
         }
     }

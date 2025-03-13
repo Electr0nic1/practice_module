@@ -11,9 +11,11 @@ using WpfApp1.Models;
 
 namespace WpfApp1.ViewModel
 {
-    internal class PartnerViewModel
+    public class PartnerViewModel 
     {
-        public ObservableCollection<Partner> Partners { get; set; }
+        public ObservableCollection<PartnerWithDiscount> Partners { get; set; }
+
+        private ObservableCollection<string> PartnerTypes { get; set; }
 
         public ObservableCollection<string> PartnerNames { get; set; }
 
@@ -24,8 +26,9 @@ namespace WpfApp1.ViewModel
 
         private void LoadPartners()
         {
-            var partners = PartnerData.GetPartners();
-            Partners = new ObservableCollection<Partner>(partners);
+            var partners = DBData.GetPartners();
+            Partners = new ObservableCollection<PartnerWithDiscount>(partners);
+            PartnerTypes = new ObservableCollection<string>(partners.Select(p => p.PartnerTypeEntity.TypeName).Distinct().ToList());
             PartnerNames = new ObservableCollection<string>(partners
                 .Select(p => p.CompanyName)
                 .Distinct()
