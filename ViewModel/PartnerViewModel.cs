@@ -7,17 +7,50 @@ using System.Text;
 using System.Threading.Tasks;
 using WpfApp1;
 using WpfApp1.Models;
+using System.Runtime.CompilerServices;
 
 
 namespace WpfApp1.ViewModel
 {
-    public class PartnerViewModel 
+    public class PartnerViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<PartnerWithDiscount> Partners { get; set; }
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        private ObservableCollection<string> PartnerTypes { get; set; }
+        private ObservableCollection<PartnerWithDiscount> partners = new ObservableCollection<PartnerWithDiscount>();
 
-        public ObservableCollection<string> PartnerNames { get; set; }
+        public ObservableCollection<PartnerWithDiscount> Partners
+        {
+            get { return partners; }
+            set
+            {
+                partners = value;
+                OnPropertyChanged(nameof(Partners));
+            }
+        }
+
+        private ObservableCollection<string> partnerTypes = new ObservableCollection<string>();
+
+        public ObservableCollection<string> PartnerTypes
+        {
+            get { return partnerTypes; }
+            set
+            {
+                partnerTypes = value;
+                OnPropertyChanged(nameof(PartnerTypes));
+            }
+        }
+
+        private ObservableCollection<string> partnerNames;
+
+        public ObservableCollection<string> PartnerNames
+        {
+            get { return partnerNames; }
+            set
+            {
+                partnerNames = value;
+                OnPropertyChanged(nameof(PartnerNames));
+            }
+        }
 
         public PartnerViewModel()
         {
@@ -33,6 +66,11 @@ namespace WpfApp1.ViewModel
                 .Select(p => p.CompanyName)
                 .Distinct()
                 .ToList());
+        }
+
+        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

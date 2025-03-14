@@ -34,8 +34,6 @@
 
             <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
                 <ComboBox Name="PartnerTypeComboBox" ItemsSource="{Binding PartnerTypes}"
-						  DisplayMemberPath="TypeName"
-						  SelectedValuePath="PartnerTypeId"
 						  />
                 <TextBox IsReadOnly="True" Text=" | "/>
                 <TextBox Name="CompanyNameTextBox" Text="Введите название партнера"/>
