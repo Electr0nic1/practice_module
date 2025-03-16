@@ -52,6 +52,41 @@ namespace WpfApp1.ViewModel
             }
         }
 
+        private PartnerWithDiscount selectedPartner;
+
+        public PartnerWithDiscount SelectedPartner
+        {
+            get { return selectedPartner; }
+            set
+            {
+                selectedPartner = value;
+                OnPropertyChanged(nameof(SelectedPartner));
+            }
+        }
+
+        private string pageTitle;
+
+        public string PageTitle
+        {
+            get { return pageTitle; }
+            set 
+            { 
+                pageTitle = value;
+                OnPropertyChanged(nameof(PageTitle));
+            }
+        }
+
+        private string buttonText;
+        public string ButtonText
+        {
+            get { return buttonText; }
+            set 
+            { 
+                buttonText = value;
+                OnPropertyChanged(nameof(ButtonText));
+            }
+        }
+
         public PartnerViewModel()
         {
             LoadPartners();

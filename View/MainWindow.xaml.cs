@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 using System.Windows.Automation.Provider;
 using System.Windows.Navigation;
 using WpfApp1.ViewModel;
-using WpfApp1.Model;
+using WpfApp1.Models;
 using WpfApp1.View;
 
 namespace WpfApp1
@@ -28,7 +28,7 @@ namespace WpfApp1
             InitializeComponent();
             OpenPage(Pages.PartnerList);
         }
-        public void OpenPage(Pages page)
+        public void OpenPage(Pages page, Partner partner = null)
         {
             if (page == Pages.PartnerList)
             {
@@ -36,7 +36,7 @@ namespace WpfApp1
             }
             else if (page == Pages.CreatePartner)
             {
-                MainFrame.Navigate(new CreatePartner(this, new PartnerViewModel()));
+                MainFrame.Navigate(new CreatePartner(this, new PartnerViewModel(), partner));
             }
         }
 

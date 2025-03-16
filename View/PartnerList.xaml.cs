@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp1.ViewModel;
-using WpfApp1.Model;
+using WpfApp1.Models;
 
 namespace WpfApp1.View
 {
@@ -23,6 +23,8 @@ namespace WpfApp1.View
     public partial class PartnerList : Page
     {
         private MainWindow mainWindow;
+        private PartnerViewModel viewModel;
+
         public PartnerList(MainWindow mainWindow, PartnerViewModel viewModel)
         {
             InitializeComponent();
@@ -35,6 +37,12 @@ namespace WpfApp1.View
         private void CreatePartner_Click(object sender, RoutedEventArgs e)
         {
             mainWindow.OpenPage(MainWindow.Pages.CreatePartner);
+        }
+
+        private void UpdatePartner_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            Partner partner = (Partner)PartnerListBox.SelectedItem;
+            mainWindow.OpenPage(MainWindow.Pages.CreatePartner, partner);
         }
 
     }

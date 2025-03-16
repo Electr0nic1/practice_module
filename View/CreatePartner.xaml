@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"
-                   FontSize="30" Text="Создание партнера" HorizontalAlignment="Center"/>
+                   FontSize="30" Text="{Binding PageTitle}" HorizontalAlignment="Center"/>
 
         <Button Grid.Column="2" Grid.Row="0" Content="⏪" MinHeight="50" MinWidth="50" 
                 HorizontalAlignment="Right" VerticalAlignment="Top" Background="{StaticResource AccentColor}"
@@ -33,10 +33,10 @@
                     VerticalAlignment="Center">
 
             <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-                <ComboBox Name="PartnerTypeComboBox" ItemsSource="{Binding PartnerTypes}"
+                <ComboBox x:Name="PartnerTypeComboBox" ItemsSource="{Binding PartnerTypes}"
 						  />
                 <TextBox IsReadOnly="True" Text=" | "/>
-                <TextBox Name="CompanyNameTextBox" Text="Введите название партнера"/>
+                <TextBox x:Name="CompanyNameTextBox" Text="Введите название партнера"/>
 
             </StackPanel>
 
@@ -48,7 +48,7 @@
         </StackPanel>
 
         <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                Click="AddPartner" Content="Добавить партнера" Background="{StaticResource AccentColor}" MinHeight="50"/>
+                Click="SavePartner" Content="{Binding ButtonText}" Background="{StaticResource AccentColor}" MinHeight="50"/>
     </Grid>
 
 </Page>

@@ -14,7 +14,7 @@ namespace WpfApp1.Models
             {
                 if (PartnerProductsEntities == null || PartnerProductsEntities.Count == 0)
                 {
-                    return 5;
+                    return 0;
                 }
 
                 int totalSales = PartnerProductsEntities.Sum(p => p.ProductAmount);

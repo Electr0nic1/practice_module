@@ -35,6 +35,19 @@ namespace WpfApp1.ViewModel
             }
         }
 
+        public static void UpdatePartner(Partner partner)
+        {
+            using (DbAppContext ctx = new DbAppContext())
+            {
+                var existingPartner = ctx.Partners.Find(partner.PartnerId);
+                if (existingPartner != null)
+                {
+                    ctx.Entry(existingPartner).CurrentValues.SetValues(partner);
+                    ctx.SaveChanges();
+                }
+            }
+        }
+
         public static int GetPartnerId(string partnerName)
         {
             using (DbAppContext ctx = new DbAppContext())
