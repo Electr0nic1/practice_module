@@ -19,7 +19,9 @@
         </StackPanel>
 
         <StackPanel HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal" Margin="10">
-
+			<Button
+				Content="Продажи партнеров" MinHeight="40" MinWidth="50" Background="{StaticResource AccentColor}"
+				Click="PartnerSales_Click"/>
             <Button 
                 Content="+" MinHeight="40" MinWidth="40" Background="{StaticResource AccentColor}"
                 Click="CreatePartner_Click" Margin="5 0 0 0"/>

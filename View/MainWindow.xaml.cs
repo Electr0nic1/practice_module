@@ -21,7 +21,8 @@ namespace WpfApp1
         public enum Pages
         {
             PartnerList,
-            CreatePartner
+            CreatePartner,
+            PartnerSales
         }
 
         public PartnerViewModel ViewModel { get; set; }
@@ -42,6 +43,9 @@ namespace WpfApp1
             else if (page == Pages.CreatePartner)
             {
                 MainFrame.Navigate(new CreatePartner(this, ViewModel, partner));
+            } else if (page == Pages.PartnerSales)
+            {
+                MainFrame.Navigate(new PartnerSales(this, ViewModel));
             }
         }
 

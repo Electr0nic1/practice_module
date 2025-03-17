@@ -17,9 +17,6 @@ using WpfApp1.Models;
 
 namespace WpfApp1.View
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class PartnerList : Page
     {
         private MainWindow mainWindow;
@@ -45,6 +42,11 @@ namespace WpfApp1.View
         {
             Partner partner = (Partner)PartnerListBox.SelectedItem;
             mainWindow.OpenPage(MainWindow.Pages.CreatePartner, partner);
+        }
+
+        private void PartnerSales_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindow.OpenPage(MainWindow.Pages.PartnerSales);
         }
 
     }

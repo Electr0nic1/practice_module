@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WpfApp1.Model;
 using WpfApp1.Models;
 
 namespace WpfApp1.ViewModel
@@ -53,6 +52,22 @@ namespace WpfApp1.ViewModel
             using (DbAppContext ctx = new DbAppContext())
             {
                 return ctx.PartnerTypes.First(t => t.TypeName == partnerName).PartnerTypeId;
+            }
+        }
+
+        public static Partner GetPartnerByName(string partnerName)
+        {
+            using (DbAppContext ctx = new DbAppContext())
+            {
+                return ctx.Partners.First(p => p.CompanyName == partnerName);
+            }
+        }
+
+        public static List<PartnerProducts> GetPartnerProducts(int partnerId)
+        {
+            using (DbAppContext ctx = new DbAppContext())
+            {
+                return ctx.PartnerProducts.Where(p => p.PartnerId == partnerId).ToList();
             }
         }
     }

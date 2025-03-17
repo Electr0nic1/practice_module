@@ -52,6 +52,18 @@ namespace WpfApp1.ViewModel
             }
         }
 
+        private ObservableCollection<PartnerProducts> partnerSales = new ObservableCollection<PartnerProducts>();
+
+        public ObservableCollection<PartnerProducts> PartnerSales
+        {
+            get { return partnerSales; }
+            set
+            {
+                partnerSales = value;
+                OnPropertyChanged(nameof(PartnerSales));
+            }
+        }
+
         private PartnerWithDiscount selectedPartner;
 
         public PartnerWithDiscount SelectedPartner

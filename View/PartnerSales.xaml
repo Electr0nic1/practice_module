@@ -1,0 +1,67 @@
+﻿<Page x:Class="WpfApp1.View.PartnerSales"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1.View"
+        mc:Ignorable="d"
+        Title="История реализации" Height="600" Width="800">
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="2*"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+
+		<TextBlock Grid.ColumnSpan="2" FontSize="30" Text="Продажи партнера" HorizontalAlignment="Center"/>
+
+		<Button Grid.Column="2" Grid.Row="0" Content="⏪" MinHeight="50" MinWidth="50"
+             HorizontalAlignment="Center" Background="{StaticResource AccentColor}"
+             Click="BackButton_Click"/>
+
+		<StackPanel Grid.Row="1" Grid.Column="1">
+			<TextBlock Text="Выберите партнера"/>
+			<ComboBox Name="PartnerNameComboBox" ItemsSource="{Binding PartnerNames}" SelectionChanged="ComboBox_SelectionChanged"/>
+		</StackPanel>
+
+
+		<ScrollViewer Grid.Row="1" Grid.Column="0" Height="400">
+			<ItemsControl x:Name="PartnerListBox"
+			  ItemsSource="{Binding PartnerSales}" HorizontalContentAlignment="Stretch"
+			  Margin="5">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Border BorderBrush="Black" BorderThickness="1">
+							<Grid Background="{StaticResource SecondaryColor}">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="5*"/>
+									<ColumnDefinition Width="*"/>
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition/>
+									<RowDefinition/>
+									<RowDefinition/>
+								</Grid.RowDefinitions>
+
+								<TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Product.ProductName}"/>
+								<TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding ProductAmount, StringFormat='Проданное количество {0}'}"/>
+
+								<TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding SaleDate, StringFormat='Дата продажи: {0}'}"/>
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+
+
+		<Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top"
+                Click="CalculateMaterialButton_Click" Content="Расчитать кол-во материала" Background="{StaticResource AccentColor}" MinHeight="50" Width="200"/>
+	</Grid>
+</Page>

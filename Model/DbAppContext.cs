@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using WpfApp1.Models;
 
-namespace WpfApp1.Model
+namespace WpfApp1.Models
 {
     internal class DbAppContext : DbContext
     {
@@ -15,6 +14,7 @@ namespace WpfApp1.Model
         public DbSet<PartnerType> PartnerTypes { get; set; }
         public DbSet<PartnerProducts> PartnerProducts { get; set; }
         public DbSet<Partner> Partners { get; set; }
+        public DbSet<MaterialType> MaterialType { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -67,6 +67,7 @@ namespace WpfApp1.Model
                 entity.Property(e => e.ProductName).HasColumnName("product_name");
                 entity.Property(e => e.Article).HasColumnName("article");
                 entity.Property(e => e.MinCost).HasColumnName("min_cost");
+                entity.Property(e => e.ProductTypeId).HasColumnType("product_type_id");
 
                 entity.HasOne(p => p.ProductTypeEntity).WithMany(p => p.ProductEntities).HasForeignKey(p => p.ProductTypeId);
             });
@@ -84,6 +85,15 @@ namespace WpfApp1.Model
 
                 entity.HasOne(p => p.PartnerEntity).WithMany(p => p.PartnerProductsEntities).HasForeignKey(p => p.PartnerId);
                 entity.HasOne(p => p.ProductEntity).WithMany(p => p.PartnerProductsEntities).HasForeignKey(p => p.ProductId);
+            });
+
+            modelBuilder.Entity<MaterialType>(entity =>
+            {
+                entity.ToTable("material_type");
+
+                entity.Property(e => e.MaterialTypeId).HasColumnName("material_type_id");
+                entity.Property(e => e.TypeName).HasColumnName("type_name");
+                entity.Property(e => e.Ratio).HasColumnName("ratio");
             });
         }
     }
