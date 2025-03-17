@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1.View"
         mc:Ignorable="d"
-        Title="Список партнеров" Height="450" Width="800">
+        Title="Список партнеров" Height="600" Width="800">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -15,7 +15,7 @@
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
             <Image Source="\Images\master_pol.png" Width="40" Height="40"/>
-            <TextBlock FontSize="30" Text="Список партнеров" HorizontalAlignment="Center" RenderTransformOrigin="-0.089,0.545"/>
+            <TextBlock FontSize="30" Text="{Binding PageTitle}" HorizontalAlignment="Center" RenderTransformOrigin="-0.089,0.545"/>
         </StackPanel>
 
         <StackPanel HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal" Margin="10">

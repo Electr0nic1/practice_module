@@ -26,7 +26,7 @@ namespace WpfApp1.Models
             }
         }
 
-        public PartnerWithDiscount(Partner partner) : base(partner.CompanyName, partner.DirectorName, partner.Email, partner.Phone, partner.RegisteredAddress, partner.PartnerTypeEntity)
+        public PartnerWithDiscount(Partner partner) : base(partner.PartnerId, partner.CompanyName, partner.DirectorName, partner.Email, partner.Phone, partner.RegisteredAddress, partner.Rating, partner.PartnerTypeEntity, partner.PartnerTypeId)
         {
             PartnerTypeEntity = partner.PartnerTypeEntity;
             PartnerProductsEntities = partner.PartnerProductsEntities;

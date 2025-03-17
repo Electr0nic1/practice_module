@@ -23,20 +23,25 @@ namespace WpfApp1
             PartnerList,
             CreatePartner
         }
+
+        public PartnerViewModel ViewModel { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+            ViewModel = new PartnerViewModel();
+            DataContext = ViewModel;
             OpenPage(Pages.PartnerList);
         }
         public void OpenPage(Pages page, Partner partner = null)
         {
             if (page == Pages.PartnerList)
             {
-                MainFrame.Navigate(new PartnerList(this, new PartnerViewModel()));
+                MainFrame.Navigate(new PartnerList(this, ViewModel));
             }
             else if (page == Pages.CreatePartner)
             {
-                MainFrame.Navigate(new CreatePartner(this, new PartnerViewModel(), partner));
+                MainFrame.Navigate(new CreatePartner(this, ViewModel, partner));
             }
         }
 

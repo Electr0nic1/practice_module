@@ -23,7 +23,6 @@ namespace WpfApp1.View
         private PartnerViewModel viewModel;
         private Partner existingPartner;
 
-        public string PageTitle { get; set; }
         public string ButtonText { get; set; }
 
         public CreatePartner(MainWindow mainWindow, PartnerViewModel viewModel, Partner partner = null)
@@ -45,7 +44,7 @@ namespace WpfApp1.View
                 PhoneTextBox.Text = existingPartner.Phone;
                 RegisteredAddressTextBox.Text = existingPartner.RegisteredAddress;
                 RatingTextBox.Text = existingPartner.Rating.ToString();
-                PartnerTypeComboBox.SelectedItem = existingPartner.PartnerTypeId;
+                PartnerTypeComboBox.SelectedItem = existingPartner.PartnerTypeEntity.TypeName;
             } else
             {
                 viewModel.PageTitle = "Добавление партнера";
@@ -60,6 +59,18 @@ namespace WpfApp1.View
             mainWindow.OpenPage(MainWindow.Pages.PartnerList);
         }
 
+        private bool IsValidPhoneNumber(string phoneNumber)
+        {
+            return !string.IsNullOrEmpty(phoneNumber) &&
+                   phoneNumber.Length == 10 &&
+                   phoneNumber.All(char.IsDigit);
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            return !string.IsNullOrEmpty(email) && email.Length <= 30;
+        }
+
         public void SavePartner(object sender, RoutedEventArgs e)
         {
             if(PartnerTypeComboBox.SelectedValue == null)
@@ -68,10 +79,65 @@ namespace WpfApp1.View
                 return;
             }
 
-            var rating = Decimal.Parse(RatingTextBox.Text);
-            if (rating < 0 && rating > 100)
+            string companyName = CompanyNameTextBox.Text;
+            string directorName = DirectorNameTextBox.Text;
+            string email = EmailTextBox.Text;
+            string phoneNumber = PhoneTextBox.Text;
+            string registeredAddress = RegisteredAddressTextBox.Text;
+            string ratingString = RatingTextBox.Text;
+
+     
+            if (string.IsNullOrWhiteSpace(companyName))
             {
-                MessageBox.Show("Рейтинг не диапазоне 0-100");
+                MessageBox.Show("Пожалуйста, введите название компании.");
+                return;
+            }
+
+            if (companyName.Length > 50)
+            {
+                MessageBox.Show("Название компании не должно превышать 50 символов.");
+                return;
+            }
+
+        
+            if (string.IsNullOrWhiteSpace(directorName))
+            {
+                MessageBox.Show("Пожалуйста, введите ФИО директора.");
+                return;
+            }
+
+          
+            if (string.IsNullOrWhiteSpace(registeredAddress))
+            {
+                MessageBox.Show("Пожалуйста, введите адрес регистрации.");
+                return;
+            }
+
+     
+            if (!IsValidPhoneNumber(phoneNumber))
+            {
+                MessageBox.Show("Неверный формат номера телефона. Введите 10 цифр.");
+                return;
+            }
+
+            if (!IsValidEmail(email))
+            {
+                MessageBox.Show("Неверный формат email. Введите email до 30 символов.");
+                return;
+            }
+
+            int rating;
+            if (int.TryParse(ratingString, out rating))
+            {
+                if (rating < 0 || rating > 100)
+                {
+                    MessageBox.Show("Рейтинг не в диапазоне 0-100");
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Неверный формат рейтинга. Введите число.");
                 return;
             }
 
@@ -79,11 +145,11 @@ namespace WpfApp1.View
             {
                 Partner newPartner = new Partner
                 {
-                    CompanyName = CompanyNameTextBox.Text,
-                    DirectorName = DirectorNameTextBox.Text,
-                    Email = EmailTextBox.Text,
-                    Phone = PhoneTextBox.Text,
-                    RegisteredAddress = RegisteredAddressTextBox.Text,
+                    CompanyName = companyName,
+                    DirectorName = directorName,
+                    Email = email,
+                    Phone = phoneNumber,
+                    RegisteredAddress = registeredAddress,
                     Rating = rating,
                     PartnerTypeId = DBData.GetPartnerId(PartnerTypeComboBox.SelectedItem.ToString())
                 };
@@ -94,8 +160,8 @@ namespace WpfApp1.View
             {
                 existingPartner.CompanyName = CompanyNameTextBox.Text;
                 existingPartner.DirectorName = DirectorNameTextBox.Text;
-                existingPartner.Email = EmailTextBox.Text;
-                existingPartner.Phone = PhoneTextBox.Text;
+                existingPartner.Email = email;
+                existingPartner.Phone = phoneNumber;
                 existingPartner.RegisteredAddress = RegisteredAddressTextBox.Text;
                 existingPartner.Rating = rating;
                 existingPartner.PartnerTypeId = DBData.GetPartnerId(PartnerTypeComboBox.SelectedItem.ToString());

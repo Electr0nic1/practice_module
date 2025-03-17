@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1.View"
         mc:Ignorable="d"
-        Title="Создание партнеров" Height="450" Width="800">
+        Title="Создание партнеров" Height="600" Width="800">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -27,27 +27,49 @@
                 HorizontalAlignment="Right" VerticalAlignment="Top" Background="{StaticResource AccentColor}"
                 Click="BackButton_Click"/>
 
-        <StackPanel Grid.Row="0" Grid.Column="0" Background="{StaticResource SecondaryColor}" 
-                    Grid.ColumnSpan="3" Grid.RowSpan="3"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
+<StackPanel Grid.Row="0" Grid.Column="0" Background="{StaticResource SecondaryColor}"
+            Grid.ColumnSpan="3" Grid.RowSpan="3"
+            HorizontalAlignment="Stretch"
+	VerticalAlignment="Center">
 
-            <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-                <ComboBox x:Name="PartnerTypeComboBox" ItemsSource="{Binding PartnerTypes}"
-						  />
-                <TextBox IsReadOnly="True" Text=" | "/>
-                <TextBox x:Name="CompanyNameTextBox" Text="Введите название партнера"/>
+    <StackPanel Orientation="Horizontal" Margin="5">
+        <Label Content="Тип партнера:" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <ComboBox x:Name="PartnerTypeComboBox" HorizontalAlignment="Stretch" ItemsSource="{Binding PartnerTypes}" Width="300"/>
+    </StackPanel>
 
-            </StackPanel>
+    <StackPanel Orientation="Horizontal" Margin="5">
+        <Label Content="Название партнера:" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBox x:Name="CompanyNameTextBox" Width="300" HorizontalAlignment="Stretch" Text="(до 50 символов)"/>
+    </StackPanel>
 
-            <TextBox x:Name="DirectorNameTextBox" Grid.Column="0" Grid.Row="1" Text="Введите фио директора"/>
-            <TextBox x:Name="PhoneTextBox" Grid.Column="0" Grid.Row="2" Text="Введите номер телефона(10 цифр)"/>
-            <TextBox x:Name="EmailTextBox" Grid.Column="0" Grid.Row="2" Text="Введите email"/>
-            <TextBox x:Name="RatingTextBox" Grid.Column="0" Grid.Row="3" Text="Введите рейтинг"/>
-            <TextBox x:Name="RegisteredAddressTextBox" Grid.Column="0" Grid.Row="3" Text="Введите адрес регистрации"/>
-        </StackPanel>
+    <StackPanel Orientation="Horizontal" Margin="5">
+        <Label Content="ФИО директора:" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBox x:Name="DirectorNameTextBox" Width="300" HorizontalAlignment="Stretch" Text=""/>
+    </StackPanel>
 
-        <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+    <StackPanel Orientation="Horizontal" Margin="5">
+        <Label Content="Номер телефона:" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBox x:Name="PhoneTextBox" Width="300" HorizontalAlignment="Stretch" Text="(10 цифр)"/>
+    </StackPanel>
+
+    <StackPanel Orientation="Horizontal" Margin="5">
+        <Label Content="Email:" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBox x:Name="EmailTextBox" Width="300" HorizontalAlignment="Stretch" Text="(до 30 символов)"/>
+    </StackPanel>
+
+    <StackPanel Orientation="Horizontal" Margin="5">
+        <Label Content="Рейтинг:" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBox x:Name="RatingTextBox" Width="300" HorizontalAlignment="Stretch" Text="(0-100)"/>
+    </StackPanel>
+
+    <StackPanel Orientation="Horizontal" Margin="5">
+        <Label Content="Адрес регистрации:" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBox x:Name="RegisteredAddressTextBox" Width="300" HorizontalAlignment="Stretch" Text=""/>
+    </StackPanel>
+
+</StackPanel>
+
+        <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
                 Click="SavePartner" Content="{Binding ButtonText}" Background="{StaticResource AccentColor}" MinHeight="50"/>
     </Grid>
 

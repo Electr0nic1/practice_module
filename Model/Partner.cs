@@ -15,7 +15,7 @@ namespace WpfApp1.Models
         public string Phone { get; set; }
         public string RegisteredAddress { get; set; }
         public string? Inn { get; set; }
-        public decimal? Rating { get; set; }
+        public int? Rating { get; set; }
         public int PartnerTypeId { get; set; }
         public PartnerType PartnerTypeEntity { get; set; }
         public List<PartnerProducts> PartnerProductsEntities { get; set; }
@@ -24,16 +24,19 @@ namespace WpfApp1.Models
 
         }
 
-        public Partner(string companyName, string directorName, string email, string phone, string registeredAddress, PartnerType partnerTypeEntity)
+        public Partner(int partnerId, string companyName, string directorName, string email, string phone, string registeredAddress, int? rating, PartnerType partnerTypeEntity, int partnerTypeId)
         {
+            PartnerId = partnerId;
             CompanyName = companyName;
             DirectorName = directorName;
             Email = email;
             Phone = phone;
             RegisteredAddress = registeredAddress;
+            Rating = rating;
             PartnerTypeEntity = partnerTypeEntity;
+            PartnerTypeId = partnerTypeId;
         }
-        public Partner(int partnerId, string companyName, string directorName, string email, string phone, string registeredAddress, string inn, decimal? rating, int partnerTypeId)
+        public Partner(int partnerId, string companyName, string directorName, string email, string phone, string registeredAddress, string inn, int? rating, int partnerTypeId)
         {
             PartnerId = partnerId;
             CompanyName = companyName;

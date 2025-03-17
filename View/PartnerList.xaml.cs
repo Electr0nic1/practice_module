@@ -32,6 +32,8 @@ namespace WpfApp1.View
             this.mainWindow = mainWindow;
 
             DataContext = viewModel;
+
+            viewModel.PageTitle = "Список партнеров";
         }
 
         private void CreatePartner_Click(object sender, RoutedEventArgs e)
