@@ -14,7 +14,7 @@ namespace WpfApp1.Models
         public DbSet<PartnerType> PartnerTypes { get; set; }
         public DbSet<PartnerProducts> PartnerProducts { get; set; }
         public DbSet<Partner> Partners { get; set; }
-        public DbSet<MaterialType> MaterialType { get; set; }
+        public DbSet<MaterialType> MaterialTypes { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -11,36 +11,71 @@ using System.Windows.Shapes;
 using System.Windows.Automation.Provider;
 using System.Windows.Navigation;
 using WpfApp1.ViewModel;
-using WpfApp1.Models;
 using WpfApp1.View;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using WpfApp1;
+using WpfApp1.Models;
+using System.Runtime.CompilerServices;
 
 namespace WpfApp1.View
 {
     public partial class ModalWindow : Window
     {
-        public ModalWindow()
+        private MaterialViewModel materialViewModel;
+        private ProductViewModel productViewModel;
+        private MainWindow mainWindow;
+
+        public ModalWindow(MaterialViewModel materialVM, ProductViewModel producVM)
         {
             InitializeComponent();
 
-            // Пример данных для ComboBox-ов (можно заменить на реальные данные из базы или ViewModel)
-            MaterialTypes = new ObservableCollection<string> { "Ткань", "Кожа", "Пленка" };
-            ProductTypes = new ObservableCollection<string> { "Одежда", "Обувь", "Сумки" };
+            materialViewModel = materialVM;
+            productViewModel = producVM;
 
-            DataContext = this; // Важно, чтобы привязки работали
+            DataContext = this;
 
+            MaterialTypeComboBox.DataContext = materialViewModel;
+            ProductTypeComboBox.DataContext = productViewModel;
+
+            MaterialTypes = new ObservableCollection<MaterialType>(materialViewModel.MaterialTypes);
+            ProductTypes = new ObservableCollection<ProductType>(productViewModel.ProductTypes);
         }
 
-        public ObservableCollection<string> MaterialTypes { get; set; }
-        public ObservableCollection<string> ProductTypes { get; set; }
+        public ObservableCollection<MaterialType> MaterialTypes { get; set; }
+        public ObservableCollection<ProductType> ProductTypes { get; set; }
 
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
         {
-            // Получаем данные из полей окна
-            string materialType = (string)MaterialTypeComboBox.SelectedItem;
-            string productType = (string)ProductTypeComboBox.SelectedItem;
-            if (!double.TryParse(WidthTextBox.Text, out double width))
+            MaterialType materialType = (MaterialType)MaterialTypeComboBox.SelectedItem;
+            ProductType productType = (ProductType)ProductTypeComboBox.SelectedItem;
+
+            if (MaterialTypeComboBox.SelectedValue == null)
+            {
+                MessageBox.Show("Пожалуйста, выберите тип материала");
+                return;
+            }
+
+            if (ProductTypeComboBox.SelectedValue == null)
+            {
+                MessageBox.Show("Пожалуйста, выберите тип продукта");
+                return;
+            }
+
+            if (!decimal.TryParse(WidthTextBox.Text, out decimal width))
             {
                 MessageBox.Show("Неверный формат ширины.");
+                return;
+            }
+
+            if (!decimal.TryParse(LengthTextBox.Text, out decimal length))
+            {
+                MessageBox.Show("Неверный формат длины.");
                 return;
             }
 
@@ -50,14 +85,21 @@ namespace WpfApp1.View
                 return;
             }
 
-            // Здесь должна быть логика расчета необходимого материала
-            // Заглушка:
-            double requiredMaterial = width * quantity;
+            MessageBox.Show($"Необходимо материала: {CalculateMaterial(productType, materialType, quantity, width, length)} (тип: {materialType.TypeName}, продукт: {productType.TypeName})");
 
-            MessageBox.Show($"Необходимо материала: {requiredMaterial} (тип: {materialType}, продукт: {productType})");
-
-            // Закрываем модальное окно
             this.Close();
+        }
+
+        private int CalculateMaterial(ProductType productType, MaterialType materialType, int quantity, decimal width, decimal length)
+        {
+            decimal materialProductRatio = width * length * productType.Ratio;
+            decimal materialsCount = (Math.Round((materialProductRatio * quantity) + (materialProductRatio * quantity * materialType.Ratio), 2));
+
+            if (materialsCount % 10 != 0)
+            {
+                materialsCount += 1;
+            }
+            return (int)materialsCount;
         }
     }
 }

@@ -15,23 +15,23 @@
 		</Grid.RowDefinitions>
 
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="2*"/>
 			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="2*"/>
 		</Grid.ColumnDefinitions>
 
 		<TextBlock Grid.ColumnSpan="2" FontSize="30" Text="Продажи партнера" HorizontalAlignment="Center"/>
 
 		<Button Grid.Column="2" Grid.Row="0" Content="⏪" MinHeight="50" MinWidth="50"
-             HorizontalAlignment="Center" Background="{StaticResource AccentColor}"
+             HorizontalAlignment="Right" Background="{StaticResource AccentColor}"
              Click="BackButton_Click"/>
 
-		<StackPanel Grid.Row="1" Grid.Column="1">
+		<StackPanel Grid.Row="1" Grid.Column="0">
 			<TextBlock Text="Выберите партнера"/>
 			<ComboBox Name="PartnerNameComboBox" ItemsSource="{Binding PartnerNames}" SelectionChanged="ComboBox_SelectionChanged"/>
 		</StackPanel>
 
 
-		<ScrollViewer Grid.Row="1" Grid.Column="0" Height="400">
+		<ScrollViewer Grid.Row="1" Grid.Column="1" Height="400">
 			<ItemsControl x:Name="PartnerListBox"
 			  ItemsSource="{Binding PartnerSales}" HorizontalContentAlignment="Stretch"
 			  Margin="5">
@@ -49,10 +49,10 @@
 									<RowDefinition/>
 								</Grid.RowDefinitions>
 
-								<TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Product.ProductName}"/>
+								<TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding ProductId}"/>
 								<TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding ProductAmount, StringFormat='Проданное количество {0}'}"/>
 
-								<TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding SaleDate, StringFormat='Дата продажи: {0}'}"/>
+								<TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding SaleDate, StringFormat='Дата продажи: {0:dd-MM-yyyy}'}"/>
 							</Grid>
 						</Border>
 					</DataTemplate>
@@ -62,6 +62,6 @@
 
 
 		<Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top"
-                Click="CalculateMaterialButton_Click" Content="Расчитать кол-во материала" Background="{StaticResource AccentColor}" MinHeight="50" Width="200"/>
+                Click="CalculateMaterialButton_Click" Content="Расчитать кол-во материала" Background="{StaticResource AccentColor}" MinHeight="50" Width="300"/>
 	</Grid>
 </Page>

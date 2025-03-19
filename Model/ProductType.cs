@@ -15,7 +15,6 @@ namespace WpfApp1.Models
         public decimal Ratio { get; set; }
         public List<Product> ProductEntities { get; set; }
 
-
         public ProductType(int productTypeId, string typeName, decimal ratio)
         {
             ProductTypeId = productTypeId;

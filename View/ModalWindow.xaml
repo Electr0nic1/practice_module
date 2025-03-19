@@ -3,19 +3,27 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp1.View"
+        xmlns:local="clr-namespace:WpfApp1.ViewModel"
         mc:Ignorable="d"
         Title="Расчет материала" Height="600" Width="800">
 
+	<Window.Resources>
+		<local:MaterialViewModel x:Key="MaterialViewModel"/>
+		<local:ProductViewModel x:Key="ProductViewModel"/>
+	</Window.Resources>
+	
 	<StackPanel Margin="10">
 		<TextBlock Text="Тип материала:" />
-		<ComboBox x:Name="MaterialTypeComboBox" ItemsSource="{Binding MaterialTypes}" Margin="0,0,0,10" />
+		<ComboBox x:Name="MaterialTypeComboBox" DataContext="{StaticResource  MaterialViewModel}" ItemsSource="{Binding MaterialTypes}" DisplayMemberPath="TypeName"  Margin="0,0,0,10" />
 
 		<TextBlock Text="Тип продукта:" />
-		<ComboBox x:Name="ProductTypeComboBox" ItemsSource="{Binding ProductTypes}" Margin="0,0,0,10" />
+		<ComboBox x:Name="ProductTypeComboBox"  DataContext="{StaticResource  ProductViewModel}" ItemsSource="{Binding ProductTypes}" DisplayMemberPath="TypeName"  Margin="0,0,0,10" />
 
 		<TextBlock Text="Ширина (м):" />
 		<TextBox x:Name="WidthTextBox" Margin="0,0,0,10" />
+
+		<TextBlock Text="Длина (м):" />
+		<TextBox x:Name="LengthTextBox" Margin="0,0,0,10" />
 
 		<TextBlock Text="Количество:" />
 		<TextBox x:Name="QuantityTextBox" Margin="0,0,0,10" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace WpfApp1.Models
 {
     public partial class PartnerProducts
     {
+        [Key]
         public int PartnerProductsId { get; set; }
         public int ProductAmount { get; set; }
         public DateTime SaleDate { get; set; }

@@ -50,14 +50,17 @@ namespace WpfApp1.View
                 return;
             }
 
-            var partnerSales = DBData.GetPartnerProducts(partner.PartnerId);
+            var partnerSales = DBData.GetPartnerProducts().Where(p => p.PartnerId == partner.PartnerId).ToList();
             PartnerViewModel viewModel = (PartnerViewModel)DataContext;
             viewModel.PartnerSales = new ObservableCollection<PartnerProducts>(partnerSales);
         }
 
         private void CalculateMaterialButton_Click(object sender, RoutedEventArgs e)
         {
-            ModalWindow modalWindow = new ModalWindow();
+            var materialViewModel = new MaterialViewModel();
+            var productViewModel = new ProductViewModel();
+
+            ModalWindow modalWindow = new ModalWindow(materialViewModel, productViewModel);
             modalWindow.Owner = Window.GetWindow(this);
             modalWindow.ShowDialog();
         }
